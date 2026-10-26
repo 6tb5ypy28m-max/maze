@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ヤミメイロ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <!-- ステータス表示（HUD） -->
+    <header class="hud">
+      <div class="hud-item">
+        <span class="hud-label">ライフ</span>
+        <span id="hud-life" class="hud-life"></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">タイム</span>
+        <span id="hud-time" class="hud-value">0.0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">閃光</span>
+        <span id="hud-flash" class="hud-flash"></span>
+      </div>
+      <div class="hud-item hud-light">
+        <span class="hud-label">光</span>
+        <div class="meter"><div id="hud-light-bar" class="meter-bar"></div></div>
+        <span id="hud-light" class="hud-value small">40px</span>
+      </div>
+      <div id="hud-mode" class="hud-mode"></div>
+    </header>
+
+    <!-- ゲーム画面 -->
+    <div class="stage" id="stage">
+      <canvas id="game"></canvas>
+
+      <!-- タイトル画面 -->
+      <section id="title-screen" class="screen">
+        <h1 class="logo">ヤミメイロ</h1>
+        <p class="lead">ランタンの光だけを頼りに、暗闇の迷路から脱出せよ。</p>
+        <ul class="rules">
+          <li><b>速く動く</b>と光が広がる。でも<em>敵が光に気づいて追ってくる</em>。</li>
+          <li><b>ゆっくり動く</b>と見つかりにくい。でも<em>足元のトゲに気づきにくい</em>。</li>
+          <li>トゲを踏むとライフ −1。ライフ3がなくなるか、敵に捕まるとゲームオーバー。</li>
+          <li>ピンチのときは<b>閃光</b>。近くの敵が3秒ひるむ（1ゲーム2回まで）。</li>
+          <li>右下でかすかに光る<b>出口</b>を目指そう。</li>
+        </ul>
+        <p class="keys"><kbd>←↑↓→</kbd> / <kbd>WASD</kbd> 移動　<kbd>Shift</kbd> しのび足　<kbd>Space</kbd> 閃光</p>
+        <button id="start-btn" class="btn">スタート <span class="btn-sub">Enter</span></button>
+      </section>
+
+      <!-- 結果画面 -->
+      <section id="result-screen" class="screen hidden">
+        <h2 id="result-title" class="result-title"></h2>
+        <p id="result-text" class="result-text"></p>
+        <button id="retry-btn" class="btn">もう一度 <span class="btn-sub">Enter</span></button>
+        <p class="note">迷路は毎回新しく作られます</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- 読み込み順：設定 → ロジック → 表現 → 全体の進行 -->
+  <script src="js/config.js"></script>
+  <script src="js/logic.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

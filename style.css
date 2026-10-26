@@ -1,0 +1,164 @@
+/* ===== ヤミメイロ 画面のスタイル ===== */
+:root {
+  --bg: #07060a;
+  --panel: #120f17;
+  --line: #2a2433;
+  --text: #e9e2d6;
+  --muted: #8d8496;
+  --amber: #ffb54a;
+  --amber-dim: #a8661c;
+  --danger: #ff5a5a;
+  --goal: #6ff0d8;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 864px;
+}
+
+/* ---- HUD ---- */
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-item { display: flex; align-items: center; gap: 10px; }
+.hud-label { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; }
+.hud-value { font-size: 18px; font-weight: 700; min-width: 3.5em; }
+.hud-value.small { font-size: 13px; color: var(--muted); font-weight: 400; min-width: 3em; }
+.hud-life { font-size: 20px; color: var(--danger); letter-spacing: 2px; }
+.hud-flash { font-size: 18px; color: var(--amber); letter-spacing: 3px; }
+
+.meter {
+  width: 120px;
+  height: 8px;
+  background: #241e2b;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.meter-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--amber-dim), var(--amber));
+  border-radius: 4px;
+}
+
+.hud-mode {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--goal);
+  min-width: 6em;
+  text-align: right;
+}
+
+/* ---- ゲーム画面 ---- */
+.stage {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- タイトル・結果画面 ---- */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  background: radial-gradient(circle at 50% 45%, rgba(60, 35, 10, 0.55), rgba(4, 3, 6, 0.96) 60%);
+}
+.screen.hidden { display: none; }
+
+.logo {
+  margin: 0 0 8px;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  font-size: 64px;
+  letter-spacing: 0.25em;
+  color: var(--amber);
+  text-shadow: 0 0 24px rgba(255, 170, 60, 0.6);
+}
+.lead { margin: 0 0 20px; color: var(--muted); }
+
+.rules {
+  list-style: none;
+  margin: 0 0 18px;
+  padding: 0;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.rules li::before { content: "◆ "; color: var(--amber-dim); }
+.rules em { font-style: normal; color: var(--danger); }
+
+.keys { color: var(--muted); font-size: 13px; margin: 0 0 22px; }
+kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: #1a1520;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+}
+
+.btn {
+  padding: 12px 36px;
+  border: 1px solid var(--amber);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--amber);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.btn:hover, .btn:focus-visible { background: var(--amber); color: #1a1008; outline: none; }
+.btn-sub { font-size: 11px; font-weight: 400; opacity: 0.7; margin-left: 6px; }
+
+.result-title {
+  margin: 0 0 10px;
+  font-size: 48px;
+  letter-spacing: 0.15em;
+}
+.result-title.clear { color: var(--goal); text-shadow: 0 0 20px rgba(111, 240, 216, 0.5); }
+.result-title.over { color: var(--danger); text-shadow: 0 0 20px rgba(255, 90, 90, 0.45); }
+.result-text { margin: 0 0 24px; font-size: 18px; line-height: 1.7; }
+.note { margin: 16px 0 0; font-size: 12px; color: var(--muted); }

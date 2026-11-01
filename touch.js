@@ -25,8 +25,12 @@ const joyBase = document.getElementById('joy-base');
 const joyKnob = document.getElementById('joy-knob');
 const flashBtn = document.getElementById('flash-btn');
 
+// ※ iPhone(Safari)では指のリスト(TouchList)に for...of が使えないことがあるので、
+//    番号で1つずつ取り出す
 function findTouch(list, id) {
-  for (const t of list) if (t.identifier === id) return t;
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].identifier === id) return list[i];
+  }
   return null;
 }
 
@@ -44,8 +48,11 @@ function resetStick() {
 document.addEventListener('touchstart', (ev) => {
   if (state !== 'playing') return; // タイトル・結果画面ではボタンを押せるようにする
   ev.preventDefault();             // スクロールや拡大を防ぐ
+  // 指を離した合図を取りこぼしていたら（もう画面にその指がないなら）リセットする
+  if (touch.id !== null && !findTouch(ev.touches, touch.id)) resetStick();
   if (touch.id !== null) return;   // すでにスティック操作中
-  for (const t of ev.changedTouches) {
+  for (let i = 0; i < ev.changedTouches.length; i++) {
+    const t = ev.changedTouches[i];
     if (t.target === flashBtn) continue;
     touch.id = t.identifier;
     touch.ox = t.clientX;

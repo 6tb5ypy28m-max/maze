@@ -189,7 +189,11 @@ function drawMessage() {
   ctx.strokeStyle = `rgba(255, 181, 74, ${0.6 * alpha})`;
   ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.roundRect(cx - w / 2, cy - 18, w, 36, 18);
+  if (ctx.roundRect) {
+    ctx.roundRect(cx - w / 2, cy - 18, w, 36, 18);
+  } else {
+    ctx.rect(cx - w / 2, cy - 18, w, 36); // 古いiPhone(iOS 15以前)用：角丸なし
+  }
   ctx.fill();
   ctx.stroke();
   ctx.fillStyle = `rgba(255, 236, 200, ${alpha})`;

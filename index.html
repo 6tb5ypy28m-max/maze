@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#07060a">
   <title>ヤミメイロ</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -17,6 +18,10 @@
       <div class="hud-item">
         <span class="hud-label">タイム</span>
         <span id="hud-time" class="hud-value">0.0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">鍵</span>
+        <span id="hud-key" class="hud-key">未入手</span>
       </div>
       <div class="hud-item">
         <span class="hud-label">閃光</span>
@@ -43,26 +48,34 @@
           <li><b>ゆっくり動く</b>と見つかりにくい。でも<em>足元のトゲに気づきにくい</em>。</li>
           <li>トゲを踏むとライフ −1。ライフ3がなくなるか、敵に捕まるとゲームオーバー。</li>
           <li>ピンチのときは<b>閃光</b>。近くの敵が3秒ひるむ（1ゲーム2回まで）。</li>
-          <li>右下でかすかに光る<b>出口</b>を目指そう。</li>
+          <li>どこかで時々きらめく<b>鍵</b>を拾い、右下の<b>出口の扉</b>を開けて脱出しよう。</li>
+          <li>クリアすると、タイム・残りライフ・閃光の残りで <b>S〜C のランク</b>がつく。</li>
         </ul>
-        <p class="keys"><kbd>←↑↓→</kbd> / <kbd>WASD</kbd> 移動　<kbd>Shift</kbd> しのび足　<kbd>Space</kbd> 閃光</p>
-        <button id="start-btn" class="btn">スタート <span class="btn-sub">Enter</span></button>
+        <p class="keys key-only"><kbd>←↑↓→</kbd> / <kbd>WASD</kbd> 移動　<kbd>Shift</kbd> しのび足　<kbd>Space</kbd> 閃光</p>
+        <p class="keys touch-only">画面をドラッグして移動（<b>小さく動かすとしのび足</b>）<br>右下のボタンで閃光　／　横向きがおすすめ</p>
+        <button id="start-btn" class="btn">スタート <span class="btn-sub key-only">Enter</span></button>
       </section>
 
       <!-- 結果画面 -->
       <section id="result-screen" class="screen hidden">
         <h2 id="result-title" class="result-title"></h2>
         <p id="result-text" class="result-text"></p>
-        <button id="retry-btn" class="btn">もう一度 <span class="btn-sub">Enter</span></button>
+        <div id="result-rank" class="result-rank hidden"></div>
+        <button id="retry-btn" class="btn">もう一度 <span class="btn-sub key-only">Enter</span></button>
         <p class="note">迷路は毎回新しく作られます</p>
       </section>
     </div>
   </main>
 
-  <!-- 読み込み順：設定 → ロジック → 表現 → 全体の進行 -->
+  <!-- スマホ用：スティック（画面のどこでも、触った場所に出る）と閃光ボタン -->
+  <div id="joy-base" class="joy-base hidden"><div id="joy-knob" class="joy-knob"></div></div>
+  <button id="flash-btn" class="flash-btn touch-only" type="button">閃光<span id="flash-btn-count" class="flash-btn-count">2</span></button>
+
+  <!-- 読み込み順：設定 → ロジック → 表現 → タッチ操作 → 全体の進行 -->
   <script src="js/config.js"></script>
   <script src="js/logic.js"></script>
   <script src="js/render.js"></script>
+  <script src="js/touch.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

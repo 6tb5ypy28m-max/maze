@@ -1,180 +1,180 @@
-/* ===== ヤミメイロ 画面のスタイル ===== */
+/* ===== 画面のスタイル ===== */
 :root {
-  --bg: #07060a;
-  --panel: #120f17;
-  --line: #2a2433;
-  --text: #e9e2d6;
-  --muted: #8d8496;
-  --amber: #ffb54a;
-  --amber-dim: #a8661c;
-  --danger: #ff5a5a;
-  --goal: #6ff0d8;
+  --bg: #07060a; /*背景　黒*/
+  --panel: #120f17; /*パネル　黄色*/
+  --line: #2a2433; /*枠*/
+  --text: #e9e2d6; /*文字　白*/
+  --muted: #8d8496; /*文字　灰*/
+  --amber: #ffb54a; /*ランタン　オレンジ*/
+  --amber-dim: #a8661c; /*ランタンのぼやけてる部分*/
+  --danger: #ff5a5a; /*危険状態の赤*/
+  --goal: #6ff0d8; /*ゴール・クリアの青*/
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; } /*幅にpaddingと枠線を含める*/
 
 html, body {
-  margin: 0;
-  height: 100%;
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", sans-serif;
+  margin: 0; /*余白なし*/
+  height: 100%; /*画面の高さに合わせる*/
+  background: var(--bg); /*背景は背景色*/
+  color: var(--text); /*文字は基本色*/
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", sans-serif; /*フォント設定*/
 }
 
-body {
+body { /*画面を中央に置くための設定*/
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
 }
 
-.wrap {
+.wrap { /*全体の外枠、基本は横幅いっぱいだが上限も設定*/
   width: 100%;
   max-width: 864px;
 }
 
 /* ---- HUD ---- */
-.hud {
+.hud { /*ステータスバーの部分*/
   display: flex;
   align-items: center;
-  gap: 28px;
-  padding: 10px 16px;
-  margin-bottom: 10px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  font-variant-numeric: tabular-nums;
+  gap: 28px; /*各項目の間隔*/
+  padding: 10px 16px; /*内側の余白*/
+  margin-bottom: 10px; /*ゲーム画面との間隔*/
+  background: var(--panel); /*背景色*/
+  border: 1px solid var(--line); /*細い枠線*/
+  border-radius: 10px; /*角を丸く*/
+  font-variant-numeric: tabular-nums; /*数字の幅を揃える*/
 }
 
-.hud-item { display: flex; align-items: center; gap: 10px; }
-.hud-label { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; }
-.hud-value { font-size: 18px; font-weight: 700; min-width: 3.5em; }
-.hud-value.small { font-size: 13px; color: var(--muted); font-weight: 400; min-width: 3em; }
-.hud-life { font-size: 20px; color: var(--danger); letter-spacing: 2px; }
-.hud-flash { font-size: 18px; color: var(--amber); letter-spacing: 3px; }
+.hud-item { display: flex; align-items: center; gap: 10px; } /*ラベルと値の組を横並びにして、間隔は10pt*/
+.hud-label { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; } /*ラベルは灰色で、字の間隔を少し広げる*/
+.hud-value { font-size: 18px; font-weight: 700; min-width: 3.5em; } /*数字は太字で、最低値を決める*/
+.hud-value.small { font-size: 13px; color: var(--muted); font-weight: 400; min-width: 3em; } /*薄めの文字の設定*/
+.hud-life { font-size: 20px; color: var(--danger); letter-spacing: 2px; } /*ライフを表すハート*/
+.hud-flash { font-size: 18px; color: var(--amber); letter-spacing: 3px; }　/*閃光の残り*/
 
-.meter {
+.meter { /*光のメーターの枠*/
   width: 120px;
   height: 8px;
-  background: #241e2b;
-  border-radius: 4px;
-  overflow: hidden;
+  background: #241e2b; /*メーターの背景*/
+  border-radius: 4px; /*両端を丸くする*/
+  overflow: hidden; /*枠からはみ出ないように*/
 }
-.meter-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--amber-dim), var(--amber));
+.meter-bar { /*光のメーター（render.jsで書き換え）*/
+  height: 100%; /*外枠と同じ*/
+  width: 0%; /*jsで書き換え*/
+  background: linear-gradient(90deg, var(--amber-dim), var(--amber)); /*グラデーション*/
   border-radius: 4px;
 }
 
-.hud-mode {
-  margin-left: auto;
+.hud-mode { /*しのび足、追われているの表示など*/
+  margin-left: auto; /*右寄せ*/
   font-size: 13px;
-  color: var(--goal);
-  min-width: 6em;
-  text-align: right;
+  color: var(--goal); /*色の基本設定*/
+  min-width: 6em; /*文字エリアを確保*/
+  text-align: right; /*右寄せ*/
 }
 
 /* ---- ゲーム画面 ---- */
 .stage {
-  position: relative;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  overflow: hidden;
-  background: #000;
+  position: relative; /*screenを、この画面を基準に重ねる時用*/
+  border: 1px solid var(--line); /*枠線*/
+  border-radius: 10px; /*角を丸くする*/
+  overflow: hidden; /*キャンパスからはみ出ないように*/
+  background: #000; /*キャンパスが描かれる前を黒に*/
 }
 
 canvas {
-  display: block;
-  width: 100%;
-  height: auto;
+  display: block; /*隙間防止*/
+  width: 100%; /*横幅に合わせる*/
+  height: auto; /*縦横比を保ったまま、高さを決める*/
 }
 
 /* ---- タイトル・結果画面 ---- */
 .screen {
-  position: absolute;
-  inset: 0;
+  position: absolute;  /*.stageを基準に置く*/
+  inset: 0; /*stageにぴったり重ねる*/
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 24px;
-  background: radial-gradient(circle at 50% 45%, rgba(60, 35, 10, 0.55), rgba(4, 3, 6, 0.96) 60%);
+  flex-direction: column; /*縦方向の指定*/
+  align-items: center; /*横方向の指定*/
+  justify-content: center; /*縦方向の中央に*/
+  text-align: center; /*文字の中央寄せ*/
+  padding: 24px; /*内側の余白*/
+  background: radial-gradient(circle at 50% 45%, rgba(60, 35, 10, 0.55), rgba(4, 3, 6, 0.96) 60%);  /*ランタンをイメージした背景*/
 }
-.screen.hidden { display: none; }
+.screen.hidden { display: none; }/* hiddenクラスが付いたら非表示（JSで付け外しして画面を切り替える）*/
 
-.logo {
-  margin: 0 0 8px;
+.logo { /*タイトルロゴ*/
+  margin: 0 0 8px; /*下に8pxの余白*/
   font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
   font-size: 64px;
-  letter-spacing: 0.25em;
-  color: var(--amber);
-  text-shadow: 0 0 24px rgba(255, 170, 60, 0.6);
+  letter-spacing: 0.25em; /*字の間の余白*/
+  color: var(--amber); /*ランタンの色*/
+  text-shadow: 0 0 24px rgba(255, 170, 60, 0.6);  /*字をぼんやり光らせる*/
 }
-.lead { margin: 0 0 20px; color: var(--muted); }
+.lead { margin: 0 0 20px; color: var(--muted); } /*タイトル下の説明文は灰色で、下に余白をつける*/
 
-.rules {
-  list-style: none;
-  margin: 0 0 18px;
-  padding: 0;
-  text-align: left;
+.rules { /*ルール説明部分*/
+  list-style: none; /*・を消す*/
+  margin: 0 0 18px; /*下のみ余白*/
+  padding: 0; /*リスト左側の余白を消す*/
+  text-align: left; /*左寄せ*/
   font-size: 14px;
-  line-height: 1.9;
+  line-height: 1.9; /*行間広め*/
 }
-.rules li::before { content: "◆ "; color: var(--amber-dim); }
-.rules em { font-style: normal; color: var(--danger); }
+.rules li::before { content: "◆ "; color: var(--amber-dim); } /*ルールの頭に◆をつける*/
+.rules em { font-style: normal; color: var(--danger); } /*普通の書体で、赤文字に*/
 
-.keys { color: var(--muted); font-size: 13px; margin: 0 0 22px; }
-kbd {
-  display: inline-block;
+.keys { color: var(--muted); font-size: 13px; margin: 0 0 22px; } /*操作説明の行*/
+kbd { /*キー表示*/
+  display: inline-block; /*文中でも余白や枠をつけられるようにする*/
   padding: 1px 6px;
   border: 1px solid var(--line);
-  border-bottom-width: 2px;
+  border-bottom-width: 2px; /*下の線だけ太くして、立体感を出す*/
   border-radius: 4px;
   background: #1a1520;
   color: var(--text);
-  font-family: inherit;
+  font-family: inherit; /*フォントは親と同じ*/
   font-size: 12px;
 }
 
-.btn {
-  padding: 12px 36px;
+.btn { /*スタート、もう一度などのボタン*/
+  padding: 12px 36px; /*余白、横長*/
   border: 1px solid var(--amber);
   border-radius: 999px;
-  background: transparent;
+  background: transparent; /*背景透明*/
   color: var(--amber);
-  font: inherit;
+  font: inherit; /*フォントは親に合わせる*/
   font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  font-weight: 700; /*太字*/
+  cursor: pointer; /*マウスを乗せると指マークになる*/
+  transition: background 0.15s, color 0.15s; /*色の変化をなめらかに*/
 }
-.btn:hover, .btn:focus-visible { background: var(--amber); color: #1a1008; outline: none; }
-.btn-sub { font-size: 11px; font-weight: 400; opacity: 0.7; margin-left: 6px; }
+.btn:hover, .btn:focus-visible { background: var(--amber); color: #1a1008; outline: none; } /*選択状態の時、色を反転させる*/
+.btn-sub { font-size: 11px; font-weight: 400; opacity: 0.7; margin-left: 6px; } /*小さく半透明で、補足*/
 
-.result-title {
+.result-title { /*結果表示*/
   margin: 0 0 10px;
   font-size: 48px;
   letter-spacing: 0.15em;
 }
-.result-title.clear { color: var(--goal); text-shadow: 0 0 20px rgba(111, 240, 216, 0.5); }
-.result-title.over { color: var(--danger); text-shadow: 0 0 20px rgba(255, 90, 90, 0.45); }
-.result-text { margin: 0 0 24px; font-size: 18px; line-height: 1.7; }
-.note { margin: 16px 0 0; font-size: 12px; color: var(--muted); }
+.result-title.clear { color: var(--goal); text-shadow: 0 0 20px rgba(111, 240, 216, 0.5); } /*クリアしたら青めに光る*/
+.result-title.over { color: var(--danger); text-shadow: 0 0 20px rgba(255, 90, 90, 0.45); } /*ゲームオーバーなら赤く光る*/
+.result-text { margin: 0 0 24px; font-size: 18px; line-height: 1.7; } /*タイムなどの結果内容*/
+.note { margin: 16px 0 0; font-size: 12px; color: var(--muted); } /*小さい注意書き*/
 
 /* ---- 鍵（HUD） ---- */
-.hud-key { font-size: 13px; color: var(--muted); }
-.hud-key.got { color: #ffd75a; font-weight: 700; }
+.hud-key { font-size: 13px; color: var(--muted); } /*鍵がない時の表示*/
+.hud-key.got { color: #ffd75a; font-weight: 700; } /*鍵を拾うと、金色の太字になる*/
 
 /* ---- ランク評価 ---- */
-.result-rank {
-  display: flex;
+.result-rank { /*ランクの文字と点数表が入った部分*/
+  display: flex; /*ランク文字と表を横並び*/
   align-items: center;
   gap: 28px;
   margin: -8px 0 22px;
 }
-.result-rank.hidden { display: none; }
+.result-rank.hidden { display: none; }  /*ゲームオーバーの時は隠す*/
 
 .rank-letter {
   font-family: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
@@ -183,22 +183,22 @@ kbd {
   line-height: 1;
   width: 1.1em;
 }
-.rank-S { color: #ffd75a; text-shadow: 0 0 28px rgba(255, 215, 90, 0.7); }
-.rank-A { color: var(--goal); text-shadow: 0 0 22px rgba(111, 240, 216, 0.5); }
-.rank-B { color: #9fb4ff; }
-.rank-C { color: var(--muted); }
+.rank-S { color: #ffd75a; text-shadow: 0 0 28px rgba(255, 215, 90, 0.7); } /* S：金色で一番強く光る */
+.rank-A { color: var(--goal); text-shadow: 0 0 22px rgba(111, 240, 216, 0.5); } /* A：青緑で光る */
+.rank-B { color: #9fb4ff; } /* B：青、光なし */
+.rank-C { color: var(--muted); } /* C：灰色で地味に */
 
-.rank-table {
-  border-collapse: collapse;
+.rank-table { /* 点数の内訳表 */
+  border-collapse: collapse; /* セルの枠線を1本にまとめる */
   font-size: 14px;
   text-align: left;
-  font-variant-numeric: tabular-nums;
+  font-variant-numeric: tabular-nums; /* 数字の幅をそろえて桁を見やすく */
 }
-.rank-table td { padding: 3px 0; }
-.rank-table td:last-child { text-align: right; padding-left: 24px; }
-.rank-total td {
-  border-top: 1px solid var(--line);
-  padding-top: 6px;
+.rank-table td { padding: 3px 0; } /* 各セルの上下に少し余白 */
+.rank-table td:last-child { text-align: right; padding-left: 24px; } /* 右端の列は右寄せ*/
+.rank-total td { /*合計の行*/
+  border-top: 1px solid var(--line);　/* 上に区切り線を引く */
+  padding-top: 6px;　/* 線と文字の間に余白 */
   font-weight: 700;
   color: var(--amber);
 }

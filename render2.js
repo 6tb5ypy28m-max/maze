@@ -77,7 +77,7 @@ function updateLight(dt) {       // dt＝前のフレームからの経過秒数
   const ratio = clamp(game.player.speed / CONFIG.MAX_SPEED, 0, 1); // 今の速さが最高速の何割か（0〜1に収める）
   const target = lerp(CONFIG.LIGHT_MIN, CONFIG.LIGHT_MAX, ratio); // その割合から、目指す光の半径を決める
   game.lightRadius = lerp(game.lightRadius, target, Math.min(1, CONFIG.LIGHT_LERP * dt)); // 今の半径を目標に少しずつ近づける（急に変わらない）
-}                                                               // updateLight ここまで
+}                                                             
 
 //  暗闇：黒で塗りつぶし、destination-out で光の穴を開ける
 function drawDarkness(now) {         // now＝ゲーム開始からの時間（ミリ秒）。ゆらぎ等に使う
